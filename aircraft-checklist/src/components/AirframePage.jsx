@@ -1,12 +1,14 @@
 import "../styles/airframePage.css";
 import aircraftChecklists from "../aircraft-data/index.js"
 import { useState } from "react";
-import Checklists from "./Checklists.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function AirframePage () {
 
+    const navigate = useNavigate();
+
     const [aircraftChecklist, setAircraftChecklist] = useState([]);
-    const [shouldShowList, setShouldShowList] = useState(false)
+    const [dropdownValue, setDropdownValue] = useState(null)
 
     //function to look at the value of the aircraft dropdown and return the appropriate checklist into my state
     const getChecklist = (e) => {
@@ -15,6 +17,7 @@ export default function AirframePage () {
             return 
         } 
         setAircraftChecklist(aircraftChecklists[e.target.value].list)
+        setDropdownValue(e.target.value)
         console.log(aircraftChecklist);
     }
 
@@ -24,7 +27,8 @@ export default function AirframePage () {
             alert("Please select an aircraft from the dropdown menu");
         } else {
             console.log("display checklist");
-            setShouldShowList(true)
+            // setShouldShowList(true)
+            navigate(`/checklist/${dropdownValue}`)
         }
     }
     
@@ -43,16 +47,12 @@ export default function AirframePage () {
                 <select name="aircraftList" id="aircraftList" onChange={getChecklist}>
                     <option value="select">Select an Aircraft</option>
                     {availableChecklists.map(checklist =>
-                        <option value={checklist}>{aircraftChecklists[checklist].name}</option>
+                        <option value={checklist}>{aircraftChecklists[checklist].aircraftName}</option>
                         ) 
                     }
                 </select>
             </div>
             <button className = "toChecklist" type="button" onClick={displayChecklist}>View Checklist</button>
-            {shouldShowList&&<Checklists 
-                aircraftChecklist = {aircraftChecklist} 
-                Checklists = {Checklists}
-            />}
         </div>
     )
 }

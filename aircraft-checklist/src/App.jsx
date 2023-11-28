@@ -2,7 +2,7 @@ import './App.css'
 import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import AirframePage from './components/AirframePage'
-import Checklists from './components/Checklists'
+import ChecklistPage from './components/ChecklistPage'
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
       <div className="main-area">
       <Routes>
         <Route className="main-area" path="/" element={<AirframePage />} />
-        <Route path="/{aircraft}" element={<Checklists />} />
+        <Route path="/checklist/:aircraft" element={<ChecklistPage />} />
       </Routes>
       </div>
     </div>
