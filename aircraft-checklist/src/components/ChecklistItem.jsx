@@ -1,19 +1,19 @@
 export default function ChecklistItem (props) {
 
-    const { checklist } = props;
+    const { checklistItem } = props;
 
     function onCompletedClick () {
         !checklist.completed
-        console.log("completed clicked", checklist)
+        console.log("completed clicked", checklistItem.task)
     }
 
     return (
         <li className = "checklist-item">
             <div className = "checklist-item-title">
-                <h3>{checklist.task}</h3>
+                <h3>{checklistItem.task}</h3>
             </div>
             <div className = "status">
-                <button className = "completed-task" onClick={onCompletedClick}>{checklist.completed}</button>
+                <button className = "completed-task" onClick={onCompletedClick}>{checklistItem.completed}</button>
             </div>
         </li>
     )

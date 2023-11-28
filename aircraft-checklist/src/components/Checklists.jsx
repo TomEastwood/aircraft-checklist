@@ -1,37 +1,51 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import CheckListItem from "./ChecklistItem"
 
-export default function Checklists (props) {
+export default function Checklists(props) {
 
-    const { aircraftChecklist } = props;
-    
-    const [currentChecklist, setCurrentChecklist] = useState(aircraftChecklist)
-    
-    function toNextPage () {
+    const { checklist } = props;
+
+    const [currentChecklist, setCurrentChecklist] = useState(checklist)
+
+    useEffect(() => {
+        setCurrentChecklist(checklist)
+    }, [checklist])
+
+    function toNextPage() {
         console.log("next page clicked")
-        setCurrentChecklist({...currentChecklist.next, previous: currentChecklist})
+        if (currentChecklist && currentChecklist.next) {
+            setCurrentChecklist({ ...currentChecklist.next, previous: currentChecklist })
+        } else {
+            console.error("next checklist is undefined")
+        }
     }
 
-    function toPreviousPage () {
+    function toPreviousPage() {
         console.log("previous clicked")
-        setCurrentChecklist(currentChecklist.previous)
+        if (currentChecklist && currentChecklist.previous) {
+            setCurrentChecklist(currentChecklist.previous)
+        } else {
+            console.error("previous checklist is undefined")
+        }
     }
-    
-    
+
+    console.log(currentChecklist)
+
+
     return (
-        <section className = "checklist-container">
-            <div className = "checklist-title">
+        <section className="checklist-container">
+            <div className="checklist-title">
                 <h2>{currentChecklist?.name}</h2>
             </div>
-            <div className = "checklist">
+            <div className="checklist">
                 <ul>
-                    {currentChecklist?.checkLists.map(checklist => 
-                        <CheckListItem key={checklist.id} checklist={checklist} />
-                    )}
+                    {currentChecklist?.checkLists.map((checklistItem, index) => {
+                        return <CheckListItem key={index} checklistItem={checklistItem} />
+                    })}
                 </ul>
             </div>
-            <button className = "next-page" onClick={toNextPage}>Next Page</button>
-            <button className = "previous-page" onClick={toPreviousPage} disabled={!currentChecklist?.previous}>Previous Page</button>
+            <button className="next-page" onClick={toNextPage}>Next Page</button>
+            <button className="previous-page" onClick={toPreviousPage} disabled={!currentChecklist?.previous}>Previous Page</button>
         </section>
     )
 }

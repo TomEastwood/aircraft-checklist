@@ -7,19 +7,31 @@ export default function ChecklistPage () {
 
     const { aircraft } = useParams();
     console.log(aircraft);
-    const [checklist, setChecklist] = useState([]);
+    const [checklists, setChecklists] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setChecklist(aircraftChecklists[aircraft].list);
+        const selectedAircraft = aircraftChecklists[aircraft];
+        if (selectedAircraft) {
+            setChecklists(selectedAircraft.list);
+            setLoading(false);
+        } else {
+             setChecklists([]);
+             setLoading(false);
+        }
     }, [aircraft]);
 
-    console.log(checklist);
+    console.log(checklists);
 
 
 
     return (
         <>
-        <Checklists checklist={checklist} />
+        {loading ? (
+            <p>Loading...</p>
+        ) : (
+            <Checklists checklist={checklists} />
+        )}
         </>
     )
 }

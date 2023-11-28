@@ -27,7 +27,6 @@ export default function AirframePage () {
             alert("Please select an aircraft from the dropdown menu");
         } else {
             console.log("display checklist");
-            // setShouldShowList(true)
             navigate(`/checklist/${dropdownValue}`)
         }
     }
