@@ -1,4 +1,4 @@
-const a320checkList = {
+const a319checkList = {
     name: 'pre flight flows',
     checkLists: [
       {
@@ -678,6 +678,7 @@ const a320checkList = {
                 }   
             }
         }
-    }
-    
+    } 
  }
+
+export default a319checkList;
