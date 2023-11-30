@@ -1,10 +1,22 @@
+import "../styles/checklistItem.css"
+import { useState } from "react"
+
 export default function ChecklistItem (props) {
 
     const { checklistItem } = props;
 
+    const [completed, setCompleted] = useState(checklistItem.completed)
+
     function onCompletedClick () {
-        !checklist.completed
-        console.log("completed clicked", checklistItem.task)
+        setCompleted(prevCompleted => !prevCompleted)   
+        console.log("completed clicked", completed)
+    }
+
+    const buttonStyle = {
+        height: "2rem",
+        width: "2rem",
+        backgroundColor: completed ? "green" : "red",
+        border: "solid 1px black",
     }
 
     return (
@@ -13,7 +25,7 @@ export default function ChecklistItem (props) {
                 <h3>{checklistItem.task}</h3>
             </div>
             <div className = "status">
-                <button className = "completed-task" onClick={onCompletedClick}>{checklistItem.completed}</button>
+                <button style={buttonStyle} onClick={onCompletedClick}>{checklistItem.completed}</button>
             </div>
         </li>
     )

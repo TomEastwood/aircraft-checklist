@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import CheckListItem from "./ChecklistItem"
+import "../styles/checklist.css"
 
 export default function Checklists(props) {
 
@@ -44,8 +45,10 @@ export default function Checklists(props) {
                     })}
                 </ul>
             </div>
-            <button className="next-page" onClick={toNextPage}>Next Page</button>
-            <button className="previous-page" onClick={toPreviousPage} disabled={!currentChecklist?.previous}>Previous Page</button>
+            <div className="buttons-container">
+                <button className="previous-page" onClick={toPreviousPage} disabled={!currentChecklist?.previous}>Previous Page</button>
+                <button className="next-page" onClick={toNextPage}>Next Page</button>
+            </div>
         </section>
     )
 }
