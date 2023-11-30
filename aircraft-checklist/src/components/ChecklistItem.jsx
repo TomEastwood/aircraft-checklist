@@ -9,7 +9,7 @@ export default function ChecklistItem (props) {
 
     function onCompletedClick () {
         setCompleted(prevCompleted => !prevCompleted)   
-        console.log("completed clicked", completed)
+        console.log("completed clicked", !completed)
     }
 
     const buttonStyle = {

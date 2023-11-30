@@ -2,6 +2,8 @@ import { useState, useEffect } from "react"
 import CheckListItem from "./ChecklistItem"
 import "../styles/checklist.css"
 
+let globalItemIdCounter = 1;
+
 export default function Checklists(props) {
 
     const { checklist } = props;
@@ -30,8 +32,12 @@ export default function Checklists(props) {
         }
     }
 
-    console.log(currentChecklist)
+    globalItemIdCounter += currentChecklist?.checkLists.length
 
+    const checklistItems = currentChecklist?.checkLists.map((checklistItem, index) => ({
+        ...checklistItem,
+        id: globalItemIdCounter + index,
+    }));
 
     return (
         <section className="checklist-container">
@@ -40,8 +46,8 @@ export default function Checklists(props) {
             </div>
             <div className="checklist">
                 <ul>
-                    {currentChecklist?.checkLists.map((checklistItem, index) => {
-                        return <CheckListItem key={index} checklistItem={checklistItem} />
+                    {checklistItems?.map((checklistItem) => {
+                        return <CheckListItem key={checklistItem.id} checklistItem={checklistItem} />
                     })}
                 </ul>
             </div>
